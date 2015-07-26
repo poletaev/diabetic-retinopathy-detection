@@ -15,10 +15,4 @@ OUT_DIR="$1_out"
 mkdir -p $OUT_DIR
 echo "output directory is $OUT_DIR"
 
-for file in `ls $1`; do
-    echo "Process $file"
-    IN_FILE="$1/$file"
-    OUT_FILE="$OUT_DIR/$file"
-    convert -fuzz 5% -trim +repage -resize $SIZE -gravity center -background black -extent $SIZE $IN_FILE $OUT_FILE
-    # convert -fuzz 8% -trim +repage -resize $SIZE -gravity center -background black -extent $SIZE -enhance -colorspace OHTA -channel red -equalize -colorspace RGB $IN_FILE $OUT_FILE
-done
+parallel -j+0 convert -fuzz 5% -trim +repage -resize $SIZE -gravity center -background black -extent $SIZE $1/{} $OUT_DIR/{} ::: `ls $1`
