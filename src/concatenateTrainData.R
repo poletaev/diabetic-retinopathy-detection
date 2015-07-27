@@ -24,6 +24,11 @@ split <- sample.split(train$level, SplitRatio = 0.9)
 trainData <- train[split == TRUE,]
 crossValidationData <- train[split == FALSE,]
 
+# convert_imageset expects to get path to file in
+# first column
+trainData$V1 <- paste("train", trainData$V1, sep="/")
+crossValidationData$V1 <- paste("cv", crossValidationData$V1, sep="/")
+
 # for Caffe we need file with image filenames
 # and label separated by space
 write.table(trainData, file="train.txt", quote=FALSE, row.names=FALSE, col.names=FALSE)
