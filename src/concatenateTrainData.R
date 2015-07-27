@@ -20,6 +20,7 @@ rm(train0, train1, train2, train3, train4)
 # lets see how levels are spread after data preprocessing:
 hist(train$level)
 
+set.seed(144)
 split <- sample.split(train$level, SplitRatio = 0.9)
 trainData <- train[split == TRUE,]
 crossValidationData <- train[split == FALSE,]
